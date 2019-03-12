@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 01:52:18 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/11 03:13:10 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/12 03:40:05 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include "libft.h"
+# include "./libft/libft.h"
 
 # define F_CONV		0x1
 # define F_ZPAD		0x2
@@ -70,7 +70,7 @@ int		ft_asprintf(char **ret, const char *format, ...);
 int		ft_vasprintf(char **ret, const char *format, va_list ap);
 
 void	core(t_vars *v);
-void	make_ftab(t_vars *v);
+void	pf_make_ftab(t_vars *v);
 
 void	pf_int(t_vars *v);
 void	pf_uint(t_vars *v);
