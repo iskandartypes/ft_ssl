@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 02:36:55 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/20 01:57:05 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/20 13:22:57 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ t_encf		*make_ftab(void)
 	return (tab);
 }
 
-void		print_encrypt(char *encrypted, int flags)
+void		print_encrypt(char *to_encrypt, char *encrypted, int flags)
 {
+	if (flags & F_P)
+		ft_printf("%s\n", to_encrypt);
 	ft_printf("%s\n", encrypted);
 }
 
@@ -92,12 +94,14 @@ int			main(int ac, char **av)
 	if (cmd == -1)
 		return (invalid_cmd(av[1]));
 	encryptors = make_ftab();
+	
+	print_encrypt(*av, encryptors[cmd](*av, flags), flags);
 	flags = 0;
 	av = parse_flags(av + 2, &flags);
 	while (*av)
 	{
 		//need flags in encryptors for string or file
-		print_encrypt(encryptors[cmd](*av, flags), flags);
+		print_encrypt(*av, encryptors[cmd](*av, flags), flags);
 		av++;
 	}
 
