@@ -6,13 +6,13 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/12 03:43:24 by ikourkji          #+#    #+#              #
-#    Updated: 2019/03/12 03:49:33 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/03/19 07:38:17 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ssl
 
-_SRC = main.c
+_SRC = main.c temp.c
 SRC = $(patsubst %,src/%,$(_SRC))
 
 _OBJ = $(_SRC:.c=.o)
@@ -23,6 +23,8 @@ INC = -I ./inc
 LIB = -L ./ft_printf -lftprintf
 
 CFLAGS = -Wall -Wextra -Werror
+
+FSAN = -fsanitize=address
 
 all : $(NAME)
 
@@ -44,5 +46,8 @@ re: fclean all
 
 test:
 	gcc $(INC) $(_SRC) $(LIB) -g
+
+testf:
+	gcc $(INC) $(_SRC) $(LIB) -g $(FSAN)
 
 .PHONY: all $(NAME) clean fclean re test

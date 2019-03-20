@@ -6,11 +6,16 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 02:36:55 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/12 04:08:58 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/20 01:57:05 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+char	*std_commands[NUM_STD] = {};
+char	*md_commands[NUM_MD] = {"md5", "sha1", "sha224", "sha256", "sha384",\
+	"sha512"};
+char	*cph_commands[NUM_CPH] = {};
 
 /*
 ** pretty prints list of commands at an invalid command, returns 0 for main
@@ -36,42 +41,65 @@ static int	invalid_cmd(char *inv)
 
 static char	**parse_flags(char **av, unsigned char *flags)
 {
-	while (*av && *av[0] == '-' && !(*av[2]))
+	while (*av && (*av)[0] == '-' && !(*av)[2])
 	{
-		*av[1] == 'p' ? flags | F_P : 0;
-		*av[1] == 'q' ? flags | F_Q : 0;
-		*av[1] == 'r' ? flags | F_R : 0;
-		*av[1] == 's' ? flags | F_S : 0;
-		if (*av[1] < 'p' || *av[1] > 's')
+		(*av)[1] == 'p' ? *flags |= F_P : 0;
+		(*av)[1] == 'q' ? *flags |= F_Q : 0;
+		(*av)[1] == 'r' ? *flags |= F_R : 0;
+		(*av)[1] == 's' ? *flags |= F_S : 0;
+		if ((*av)[1] < 'p' || (*av)[1] > 'r')
 			break ;
 		av++;
-		if (*av[1] == 's')
-			break ;
 	}
+	if ((*av)[1] == 's' && !(*av)[2])
+		av++;
 	return (av);
 }
 
-//make ftab
-//but should it be made here or static in header?
-//probs here for easier adding of features huh
-//yeah
+t_encf		*make_ftab(void)
+{
+	t_encf	*tab;
+	int		i;
+
+	tab = ft_memalloc(sizeof(*tab) * TOT_CMD);
+	i = 0;
+	tab[i++] = &ft_md5;
+	tab[i++] = &ft_sha1;
+	tab[i++] = &ft_sha224;
+	tab[i++] = &ft_sha256;
+	tab[i++] = &ft_sha384;
+	tab[i++] = &ft_sha512;
+	return (tab);
+}
+
+void		print_encrypt(char *encrypted, int flags)
+{
+	ft_printf("%s\n", encrypted);
+}
 
 int			main(int ac, char **av)
 {
 	int				cmd;
 	unsigned char	flags;
+	t_encf			*encryptors;
 
 	if (ac == 1)
 	{
 		ft_putstr("usage: ft_ssl command [command opts] [command args]\n");
 		return (0);
 	}
-	cmd = ft_findintabn(md_commands, av[1], NUM_MD);
+	cmd = ft_findintabn(md_commands, av[1], TOT_CMD);
 	if (cmd == -1)
 		return (invalid_cmd(av[1]));
+	encryptors = make_ftab();
 	flags = 0;
 	av = parse_flags(av + 2, &flags);
-
+	while (*av)
+	{
+		//need flags in encryptors for string or file
+		print_encrypt(encryptors[cmd](*av, flags), flags);
+		av++;
+	}
 
 	return (0);
 }
