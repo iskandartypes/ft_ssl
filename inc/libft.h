@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 16:35:46 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/11 03:27:47 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/01 15:30:33 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,44 @@ typedef struct		s_list
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **also, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstaddend(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void				ft_lstmsort(t_list **lst, int (*f)(t_list*, t_list*));
 
+typedef struct		s_qnode
+{
+	void			*content;
+	struct s_qnode	*next;
+}					t_qnode;
+
+typedef struct		s_queue
+{
+	t_qnode			*first;
+	t_qnode			*last;
+}					t_queue;
+
+int					ft_qis_empty(t_queue *queue);
+t_queue				*ft_qinit(void);
+void				ft_enqueue(t_queue *queue, void *content);
+void				*ft_dequeue(t_queue *queue);
+void				*ft_qpeek(t_queue *queue);
+
+typedef struct		s_stnode
+{
+	void			*content;
+	struct s_stnode	*next;
+}					t_stnode;
+
+typedef struct		s_stack
+{
+	struct s_stnode	*top;
+}					t_stack;
+
+int					ft_stis_empty(t_stack *stack);
+t_stack				*ft_stinit(void);
+void				*ft_pop(t_stack *stack);
+void				ft_push(t_stack *stack, void *content);
+void				*ft_stpeek(t_stack *stack);
 #endif

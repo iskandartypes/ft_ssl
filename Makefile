@@ -6,13 +6,13 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/12 03:43:24 by ikourkji          #+#    #+#              #
-#    Updated: 2019/03/19 07:38:17 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/04/30 07:50:26 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ssl
 
-_SRC = main.c temp.c
+_SRC = *.c
 SRC = $(patsubst %,src/%,$(_SRC))
 
 _OBJ = $(_SRC:.c=.o)
@@ -20,7 +20,7 @@ OBJ= $(patsubst %,obj/%,$(_OBJ))
 
 INC = -I ./inc
 
-LIB = -L ./ft_printf -lftprintf
+LIB = -L ./libft -lft
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -29,25 +29,25 @@ FSAN = -fsanitize=address
 all : $(NAME)
 
 $(NAME) :
-	@make -C lib/ft_printf
+	@make -C libft
 	gcc $(INC) -c $(SRC)
 	@mv $(_OBJ) obj
 	gcc $(CFLAGS) -o $(NAME) $(INC) $(LIB) $(OBJ)
 
 clean:
-	@make -C lib/ft_printf clean
+	@make -C libft clean
 	rm -rf $(OBJ)
 
 fclean: clean
-	@make -C lib/ft_printf fclean
+	@make -C libft fclean
 	rm -f $(NAME)
 
 re: fclean all
 
 test:
-	gcc $(INC) $(_SRC) $(LIB) -g
+	gcc $(INC) $(SRC) $(LIB) -g -o test_$(NAME)
 
 testf:
-	gcc $(INC) $(_SRC) $(LIB) -g $(FSAN)
+	gcc $(INC) $(SRC) $(LIB) -g $(FSAN) -o test_$(NAME)
 
 .PHONY: all $(NAME) clean fclean re test

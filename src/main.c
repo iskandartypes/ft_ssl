@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 02:36:55 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/20 13:22:57 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/30 08:03:37 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	invalid_cmd(char *inv)
 	ft_dprintf(2, "\nStandard commands:\n");
 	ft_dprintf(2, "\nMessage Digest commands:\n");
 	cmd = 0;
-	while (md_commands[cmd])
+	while (cmd < NUM_MD)
 	{
 		ft_dprintf(2, "%-20s", md_commands[cmd++]);
 		cmd != 1 && cmd % 4 == 0 ? ft_puterror("\n") : 0;
@@ -51,7 +51,7 @@ static char	**parse_flags(char **av, unsigned char *flags)
 			break ;
 		av++;
 	}
-	if ((*av)[1] == 's' && !(*av)[2])
+	if ( *av && (*av)[1] == 's' && !(*av)[2])
 		av++;
 	return (av);
 }

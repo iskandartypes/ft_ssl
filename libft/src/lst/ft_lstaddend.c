@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstaddend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 12:07:50 by ikourkji          #+#    #+#             */
-/*   Updated: 2018/12/07 22:12:15 by ikourkji         ###   ########.fr       */
+/*   Created: 2019/04/01 15:25:00 by ikourkji          #+#    #+#             */
+/*   Updated: 2019/04/01 16:22:00 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+void	ft_lstaddend(t_list **alst, t_list *new)
 {
-	t_list	*ret;
+	t_list	*run;
 
-	if (!(ret = (t_list *)malloc(sizeof(*ret))))
-		return (NULL);
-	if (content == NULL)
+	if (!*alst)
 	{
-		ret->content = NULL;
-		ret->content_size = 0;
+		*alst = new;
+		return ;
 	}
-	else
-	{
-		if (!(ret->content = malloc(content_size)))
-		{
-			free(ret);
-			return (NULL);
-		}
-		ft_memcpy(ret->content, content, content_size);
-		ret->content_size = content_size;
-	}
-	ret->next = NULL;
-	return (ret);
+	run = *alst;
+	while (run->next)
+		run = run->next;
+	run->next = new;
 }
