@@ -43,7 +43,7 @@ static int	pf_wchar(t_vars *v, wchar_t s)
 	wchar_t	c;
 	int		len;
 
-	c = (s) ? s : va_arg(v->args, unsigned long int);
+	c = (s) ? s : (wchar_t)va_arg(v->args, unsigned long int);
 	v->clen = (v->flags & F_CONV) ? 1 : pf_wclen(c);
 	len = v->clen;
 	v->min -= v->clen;

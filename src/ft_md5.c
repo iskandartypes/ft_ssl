@@ -51,8 +51,8 @@ void	md5init(t_md5_ctx *ctx)
 	ctx->chunk[1] = 0xefcdab89;
 	ctx->chunk[2] = 0x98badcfe;
 	ctx->chunk[3] = 0x10325476;
-	ctx->state[0] = 0;
-	ctx->state[1] = 0;
+	ctx->count[0] = 0;
+	ctx->count[1] = 0;
 }
 
 /*

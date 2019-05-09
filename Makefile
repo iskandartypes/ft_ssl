@@ -31,6 +31,7 @@ all : $(NAME)
 $(NAME) :
 	@make -C libft
 	gcc $(INC) -c $(SRC)
+	@mkdir -p obj
 	@mv $(_OBJ) obj
 	gcc $(CFLAGS) -o $(NAME) $(INC) $(LIB) $(OBJ)
 

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 16:35:46 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 15:30:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/05/02 05:34:28 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 
 # define MIN(x, y) ( (x) < (y) ? (x) : (y) )
 # define MAX(x, y) ( (x) > (y) ? (x) : (y) )
@@ -90,6 +91,7 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_puterror(char const *s);
 
+int					ft_islend(void);
 uint32_t			ft_swapend32(uint32_t n);
 int					ft_findintab(char **haystack, char *needle);
 int					ft_findintabn(char **haystack, char *needle, size_t len);
